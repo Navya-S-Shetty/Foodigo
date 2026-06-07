@@ -1,61 +1,158 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <title>Update Menu</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
 </head>
+
 <body>
-    <!-- show current menu -->
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Item name</th>
-                <th>Picture</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Is veg/</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%  for item in itemList %}
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td>
-                        <img src="{{ item.picture }}">
-                    </td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.vegeterian }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
+<div class="admin-menu-page">
 
-    <!-- add food item (form) -->
-    <h2>Add Menu Item</h2>
-    <form action="{% url 'update_menu' restaurant.id %}" method="POST">
-        {% csrf_token %}
-        <label for="name">Item Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+    <div class="admin-menu-container">
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea><br><br>
+        <!-- LEFT SIDE -->
 
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" step="0.01" required><br><br>
+        <div class="admin-menu-left">
 
-        <label for="vegeterian">Vegetarian:</label>
-        <input type="checkbox" id="vegeterian" name="vegeterian"><br><br>
+            <h1 class="admin-menu-title">
+                Current Menu
+            </h1>
 
-        <label for="picture">Image URL:</label>
-        <input type="url" id="picture" name="picture"><br><br>
+            <table class="modern-table">
 
-        <button type="submit">Add Item</button>
-    </form>
+                <thead>
+
+                    <tr>
+
+                        <th>Item</th>
+
+                        <th>Picture</th>
+
+                        <th>Description</th>
+
+                        <th>Price</th>
+
+                        <th>Type</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for item in itemList %}
+
+                    <tr>
+
+                        <td>{{ item.name }}</td>
+
+                        <td>
+
+                            <img src="{{ item.picture }}" class="menu-food-img">
+
+                        </td>
+
+                        <td>{{ item.description }}</td>
+
+                        <td>₹ {{ item.price }}</td>
+
+                        <td>
+
+                            {% if item.vegeterian %}
+
+                                🟢 Veg
+
+                            {% else %}
+
+                                🔴 Non-Veg
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="admin-menu-right">
+
+            <h2 class="admin-form-title">
+                Add Menu Item
+            </h2>
+
+            <form action="{% url 'update_menu' restaurant.id %}" method="POST">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+
+                    <label>Item Name</label>
+
+                    <input type="text" name="name" placeholder="Enter item name" required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Description</label>
+
+                    <textarea name="description" placeholder="Enter description" required></textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Price</label>
+
+                    <input type="number" name="price" step="0.01" placeholder="Enter price" required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Image URL</label>
+
+                    <input type="url" name="picture" placeholder="Paste image URL">
+
+                </div>
+
+                <div class="veg-check">
+
+                    <input type="checkbox" name="vegeterian">
+
+                    <span>Vegetarian Item</span>
+
+                </div>
+
+                <button type="submit" class="admin-submit-btn">
+                    Add Item
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 </html>

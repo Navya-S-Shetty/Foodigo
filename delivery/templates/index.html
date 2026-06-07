@@ -1,33 +1,35 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Foodigo</title>
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 
 <body>
 
-    <div class="home-container">
+<section class="hero">
 
-        <h1>
-            Foodigo 🍕
-        </h1>
+    <div class="hero-content">
 
-        <p class="tagline">
-            Where you find the true taste ☕
+        <h1>Foodigo</h1>
+
+        <p>
+            Hot meals. Fast delivery.
+            Premium food ordering.
         </p>
 
-        <div class="button-group">
+        <div class="hero-buttons">
 
-            <a href="open_signup" class="btn signup-btn">
-                Sign Up
+            <a href="/open_signup" class="hero-btn primary-btn">
+                Get Started
             </a>
 
-            <a href="open_signin" class="btn signin-btn">
+            <a href="/open_signin" class="hero-btn secondary-btn">
                 Sign In
             </a>
 
@@ -35,5 +37,8 @@
 
     </div>
 
+</section>
+
 </body>
+
 </html>

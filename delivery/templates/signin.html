@@ -1,31 +1,51 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signin</title>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <title>Foodigo Signin</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 
 </head>
 
 <body>
 
-    <form action="{% url 'signin' %}" method="POST">
-        {% csrf_token %}
-        <h1>Sign In Below</h1>
+<div class="auth-page">
 
-        <label>Username </label>
-        <input type="text" name="username">
-        <br><br>
+    <div class="auth-overlay"></div>
 
-        <label>Password </label>
-        <input type="password" name="password">
-        <br><br>
+    <div class="auth-box">
 
-        <button type="submit">SIGN IN</button>
+        <h1>Welcome Back</h1>
 
-    </form>
+        <p>Sign in to continue your food journey.</p>
+
+    <form action="{% url 'signin' %}" method="post">
+
+            {% csrf_token %}
+
+            <input type="text" name="username" placeholder="Username" required>
+
+            <input type="password" name="password" placeholder="Password" required>
+
+            <button type="submit" class="auth-btn">
+                Sign In
+            </button>
+
+        </form>
+
+        <div class="auth-link">
+
+            New user?
+
+            <a href="/open_signup">Create Account</a>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>

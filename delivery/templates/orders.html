@@ -1,26 +1,95 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <title>Order Summary</title>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Success</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
 </head>
+
 <body>
-    <h1>Thank you for your order, {{ username }}!</h1>
 
+<div class="order-success-page">
 
-    <h2>Delivery Address</h2>
-    <p>{{ customer.address }}</p>
+    <div class="order-success-card">
 
-    <p>Your order will be delivered to this location shortly. Thank you for choosing Foodigo!</p>
+        <img 
+            src="https://cdn-icons-png.flaticon.com/512/845/845646.png"
+            class="success-image"
+        >
 
-    {% if cart_items %}
-        <a href="{% url 'customer_menu' cart_items.0.restaurant.id username %}">Back to Restaurants</a>
-    {% else %}
-        <a href="/">Back to Home</a>
-    {% endif %}
+        <h1>
+
+            Order Confirmed 🎉
+
+        </h1>
+
+        <h2>
+
+            Thank you, {{ username }}!
+
+        </h2>
+
+        <p class="success-text">
+
+            Your delicious food is being prepared and will reach you soon.
+
+        </p>
+
+        <div class="delivery-address-box">
+
+            <span class="delivery-title">
+
+                Delivering To
+
+            </span>
+
+            <p>
+
+                {{ customer.address }}
+
+            </p>
+
+        </div>
+
+        
+
+            
+        {% if cart_items %}
+
+        <a 
+            href="{% url 'customer_menu' cart_items.0.restaurant.id username %}"
+            class="success-btn"
+        >
+
+            Order More Food
+
+        </a>
+
+        {% else %}
+
+        <a 
+            href="/"
+            class="success-btn"
+        >
+
+            Back To Home
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
 </body>
+
 </html>

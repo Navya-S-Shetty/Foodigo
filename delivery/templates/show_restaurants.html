@@ -1,51 +1,128 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <title>Restaurant Management</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
 </head>
+
 <body>
-    
-    <table border="1">
+
+<div class="page">
+
+    <div class="admin-topbar">
+
+        <div>
+
+            <h1 class="page-title">
+                Restaurant Management
+            </h1>
+
+            <p class="page-subtitle">
+                Manage restaurants and menus easily
+            </p>
+
+        </div>
+
+        <a href="/open_add_restaurant" class="admin-add-btn">
+            + Add Restaurant
+        </a>
+
+    </div>
+
+    <table class="modern-table">
+
         <thead>
+
             <tr>
-                <th>Restaurant name</th>
+
+                <th>Restaurant</th>
+
                 <th>Picture</th>
+
                 <th>Cuisine</th>
+
                 <th>Rating</th>
+
                 <th>Operations</th>
+
             </tr>
+
         </thead>
+
         <tbody>
-            {%  for r in restaurantList %}
-                <tr>
-                    <td>{{ r.name }}</td>
-                    <td>
-                        <img src="{{ r.picture }}">
-                    </td>
-                    <td>{{ r.cuisine }}</td>
-                    <td>{{ r.rating }}</td>
-                    <td>
-                        <a href="{% url 'open_update_restaurant' r.id %}">
-                            Update Restaurant Info
+
+            {% for r in restaurantList %}
+
+            <tr>
+
+                <td class="restaurant-name">
+                    {{ r.name }}
+                </td>
+
+                <td>
+
+                    <img src="{{ r.picture }}"
+                         class="restaurant-img">
+
+                </td>
+
+                <td>
+                    {{ r.cuisine }}
+                </td>
+
+                <td class="rating-cell">
+
+                    ⭐ {{ r.rating }}
+
+                </td>
+
+                <td>
+
+                    <div class="admin-actions">
+
+                        <a href="{% url 'open_update_restaurant' r.id %}"
+                           class="admin-action-btn update-btn">
+
+                            Update Restaurant
+
                         </a>
-                        <br>
-                        <a href="{% url 'delete_restaurant' r.id %}">
+
+                        <a href="{% url 'delete_restaurant' r.id %}"
+                           class="admin-action-btn delete-btn">
+
                             Delete Restaurant
+
                         </a>
-                        <br>
-                        <a href="{% url 'open_update_menu' r.id %}">
+
+                        <a href="{% url 'open_update_menu' r.id %}"
+                           class="admin-action-btn menu-btn">
+
                             Update Menu
+
                         </a>
-                    </td>
-                </tr>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
             {% endfor %}
+
         </tbody>
+
     </table>
-    
+
+</div>
+
 </body>
 </html>

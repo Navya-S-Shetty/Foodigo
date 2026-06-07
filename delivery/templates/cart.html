@@ -1,42 +1,131 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>My Cart</title>
 
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+
 <body>
-    Hi {{username}} here are you items
-    <!-- show current menu -->
-    <table border="1">
+
+<div class="page">
+
+    <div class="menu-header">
+
+    <div>
+        <h1 class="page-title">
+            Hi {{ username }} 👋
+        </h1>
+
+        <p class="page-subtitle">
+            Here are your cart items.
+        </p>
+    </div>
+
+    <div class="cart-actions">
+
+        <a href="{% url 'checkout' username %}" class="cart-btn">
+            Checkout
+        </a>
+
+        <a href="{% url 'view_menu' restaurant.id username %}" class="back-menu-btn">
+            Back To Menu
+        </a>
+
+    </div>
+
+</div>
+
+    
+    <h2 style="color:#ffb11f; margin-bottom:25px;">
+        Total Price : ₹ {{ total_price }}
+    </h2>
+
+    <table class="modern-table">
+
         <thead>
             <tr>
-                <th>Item Image</th>
-                <th>Name</th>
+                <th>Item</th>
+                <th>Image</th>
                 <th>Description</th>
+                <th>Quantity</th>
                 <th>Price</th>
+                <th>Total</th>
             </tr>
         </thead>
+
         <tbody>
-            {%  for item in itemList %}
-                <tr>
-                    <td>
-                        <img src="{{ item.picture }}">
-                    </td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.price }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        <h2>Total price : {{total_price}}</h2>
-        
-        <form action="{% url 'checkout' username %}">
-            <input type="submit" value="CHECK OUT" />
-        </form>
+
+{% for item in cart_items %}
+
+<tr>
+
+    <td>
+        {{ item.item.name }}
+    </td>
+
+   <td>
+    <img src="{{ item.item.picture }}" 
+         width="80" 
+         height="80"
+         style="border-radius:10px; object-fit:cover;">
+</td>
+
+    <td>
+        {{ item.item.description }}
+    </td>
+
+   <td>
+
+    <a href="{% url 'decrease_quantity' item.id username %}" 
+       style="
+       text-decoration:none;
+       color:#ffb11f;
+       font-size:26px;
+       font-weight:bold;
+       padding:10px;">
+        −
+    </a>
+
+    <span style="
+        margin:0 12px;
+        color:white;
+        font-weight:600;">
+        {{ item.quantity }}
+    </span>
+
+    <a href="{% url 'increase_quantity' item.id username %}" 
+       style="
+       text-decoration:none;
+       color:#ffb11f;
+       font-size:26px;
+       font-weight:bold;
+       padding:10px;">
+        +
+    </a>
+
+</td>
+
+    <td>
+    ₹{{ item.item.price|floatformat:2 }}
+</td>
+
+<td>
+    ₹{% widthratio item.item.price 1 item.quantity %}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
     </table>
+
+</div>
+
 </body>
 </html>

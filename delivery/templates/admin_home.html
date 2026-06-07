@@ -1,19 +1,48 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+
+    <title>Admin Dashboard</title>
+
     <link rel="stylesheet" href="{% static 'style.css' %}">
 
 </head>
+
 <body>
-    <h1>Welcome to Admin Page</h1>
-    <a href = "/open_add_restaurant">Add New Restaurant</a>
-    <br>
-    <br>
-    <a href = "/open_show_restaurant">View Restaurants</a>
+
+<div class="admin-page">
+
+    <div class="admin-card">
+
+        <h1 class="admin-title">
+            Welcome Admin 👋
+        </h1>
+
+        <p class="admin-subtitle">
+            Manage restaurants, menus and food items easily.
+        </p>
+
+        <div class="admin-actions">
+
+            <a href="/open_add_restaurant" class="admin-btn">
+                Add Restaurant
+            </a>
+
+            <a href="/open_show_restaurant" class="admin-btn secondary-admin-btn">
+                View Restaurants
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>

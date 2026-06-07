@@ -1,82 +1,162 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'style.css' %}">
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Checkout</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <link rel="stylesheet" href="{% static 'delivery/site-theme.css' %}">
+
 </head>
+
 <body>
-    <h1>Checkout</h1>
-    <h2>Welcome, {{ username }}</h2>
 
-    {% if error %}
-    <p style="color: red;">{{ error }}</p>
-    {% else %}
+<div class="checkout-page">
+
+    <div class="checkout-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="checkout-left">
+
+            <div class="checkout-top">
+
+                <h1>Checkout</h1>
+
+                <p>Complete your delicious order</p>
+
+            </div>
+
+            <div class="food-list">
+
+                {% for cart_item in cart_items %}
+
+                <div class="food-card">
+
+                    <div class="food-left">
+
+                        <img src="{{ cart_item.item.picture }}">
+
+                        <div>
+
+                            <h3>{{ cart_item.item.name }}</h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="food-right">
+
+                        <span class="food-qty">
+
+                            Qty : {{ cart_item.quantity }}
+
+                        </span>
+<span class="food-price">
+    ₹{% widthratio cart_item.item.price 1 cart_item.quantity %}
+</span>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
 
 
+        <div class="checkout-right">
 
+            <h2>Order Summary</h2>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart_items %}
-            <tr>
-                <td>{{ item.name }}</td>
-                <td>₹{{ item.price }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h3>Total: ₹{{ total_price }}</h3>
+            <div class="summary-row">
 
+                <span>Items Total</span>
 
+                <span>₹{{ total_price }}</span>
 
-    
+            </div>
 
-    <button id="rzp-button">Pay with Razorpay</button>
-    {% endif %}
+            <div class="summary-row">
 
+                <span>Delivery Fee</span>
 
-    
+                <span>₹40</span>
 
-    <script>
-        var options = {
-           "key": "{{ razorpay_key_id }}",  // Razorpay API key
-            "amount": "{{ total_price|floatformat:2|add:'0.00'|floatformat:2 }}00", // Amount in paisa
-            "currency": "INR",
-            "name": "Meal Buddy",
-            "description": "Order Payment",
-            "order_id": "{{ order_id }}",  // Razorpay order ID
-            "handler": function (response) {
-                alert("Payment Successful!");
-                // Redirect to the orders page
-                window.location.href = "{% url 'orders' username %}";
-            },
-            "prefill": {
-                "name": "{{ username }}",
-                "email": "customer@example.com",
-                "contact": "9999999999"
-            },
-            "theme": {
-                "color": "#528FF0"
-            }
-        };
-        var rzp = new Razorpay(options);
-    
-        document.getElementById('rzp-button').onclick = function(e) {
-            rzp.open();
-            e.preventDefault();
-        }
-    </script>
-    
+            </div>
+
+            <div class="summary-row total-row">
+
+                <span>Total</span>
+
+<span>₹{{ final_amount }}</span>
+            </div>
+
+            <button type="button" id="rzp-button" class="pay-btn">
+
+                Pay Now
+
+            </button>
+
+            <a href="/show_cart/{{ username }}/" class="go-cart-btn">
+    Go To Cart
+</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+var options = {
+
+    "key": "{{ razorpay_key_id }}",
+
+    "amount": "{{ razorpay_amount }}",
+
+    "currency": "INR",
+
+    "name": "Foodigo",
+
+    "description": "Order Payment",
+
+    "order_id": "{{ order_id }}",
+
+    "redirect": false,
+
+    "handler": function (response) {
+
+    alert("Payment Successful!");
+
+window.location.replace("/orders/{{ username }}/");},
+
+    "theme": {
+
+        "color": "#ffb11f"
+    }
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById("rzp-button").onclick = function (e) {
+
+    rzp.open();
+
+    return false;
+};
+
+</script>
+
 </body>
 </html>

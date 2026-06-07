@@ -1,43 +1,56 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <title>Foodigo Signup</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 
 </head>
 
 <body>
 
-    <form action="{% url 'signup' %}" method="POST">
-        {% csrf_token %}
-        <h1>Sign Up Below</h1>
+<div class="auth-page">
 
-        <label>Username </label>
-        <input type="text" name="username">
-        <br><br>
+    <div class="auth-overlay"></div>
 
-        <label>Password </label>
-        <input type="password" name="password">
-        <br><br>
+    <div class="auth-box">
 
-        <label>Email </label>
-        <input type="email" name="email">
-        <br><br>
+        <h1>Create Account</h1>
 
-        <label>Mobile </label>
-        <input type="text" name="mobile">
-        <br><br>
+        <p>Join Foodigo and explore premium food delivery.</p>
 
-        <label>Address </label>
-        <textarea name="address"></textarea>
-        <br><br>
+<form action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
 
-        <button type="submit">SIGN UP</button>
+            <input type="text" name="username" placeholder="Username" required>
 
-    </form>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <input type="email" name="email" placeholder="Email" required>
+
+            <input type="text" name="mobile" placeholder="Mobile Number" required>
+
+            <textarea name="address" placeholder="Address"></textarea>
+
+            <button type="submit" class="auth-btn">
+                Sign Up
+            </button>
+
+        </form>
+
+        <div class="auth-link">
+
+            Already have an account?
+
+            <a href="/open_signin">Sign In</a>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>
